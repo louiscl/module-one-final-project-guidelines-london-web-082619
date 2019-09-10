@@ -1,3 +1,9 @@
+Flight.destory_all
+User.destory_all
+Trip.destory_all
+Airline.destory_all
+
+
 
 easyjet = Airline.create(name: "EasyJet", business_model: "low cost", founded: "19950301")
 ba = Airline.create(name: "British Airways", business_model: "premium", founded: "19740331")
