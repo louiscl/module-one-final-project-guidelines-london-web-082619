@@ -1,8 +1,8 @@
+
 Flight.destory_all
 User.destory_all
 Trip.destory_all
 Airline.destory_all
-
 
 
 easyjet = Airline.create(name: "EasyJet", business_model: "low cost", founded: "19950301")
@@ -34,3 +34,4 @@ user_3 = User.create(first_name: "Louis", last_name: "Lammerting", age: 23, user
 trip_1 = Trip.create(flight_id: flight_1.id, user_id: user_1.id)
 trip_2 = Trip.create(flight_id: flight_7.id, user_id: user_2.id)
 trip_3 = Trip.create(flight_id: flight_12.id, user_id: user_3.id)
+
