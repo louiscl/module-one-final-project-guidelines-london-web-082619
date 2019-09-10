@@ -1,4 +1,4 @@
 class Trip < ActiveRecord::Base
     belongs_to :user
-    belongs_to :airline
+    belongs_to :flight
 end
