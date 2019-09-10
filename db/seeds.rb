@@ -1,16 +1,37 @@
-user_1 = User.create(first_name: "Abdullah",last_name: "Saudi",age: 35 )
-user_2 = User.create(first_name: "Max",last_name: "Braun", age: 23)
-user_3 = User.create(first_name: "Sophie",last_name: "Milanova", age: 24)
-user_4 = User.create(first_name: "Lara",last_name: "Libya" ,age: 21)
-user_5 = User.create(first_name: "Sarah",last_name: "Brazil" ,age: 28)
 
-easyjet = Airline.create(name: "Easy Jet", business_model: "Low-cost", founded: 1995)
-british_airways = Airline.create(name: "British Ariways", business_model: "Premium", founded: 1974)
-emirates = Airline.create(name: "Emirates", business_model: "Premium", founded: 1985)
+Flight.destory_all
+User.destory_all
+Trip.destory_all
+Airline.destory_all
 
 
+easyjet = Airline.create(name: "EasyJet", business_model: "low cost", founded: "19950301")
+ba = Airline.create(name: "British Airways", business_model: "premium", founded: "19740331")
+emirates = Airline.create(name: "Emirates", business_model: "premium", founded: "19850325")
 
-trip1 = Trip.create(origin: "London", destination: "Paris", departure_date_time: "20190920 140000", arrival_date_time: "20190920 160000", price: 100.0, user_id: user_1.id, airline_id: easyjet.id)
-trip2 = Trip.create(origin: "Brussels", destination: "Antwerp", departure_date_time: "20191002 150000", arrival_date_time: "20191002 170000", price: 80.0, user_id: user_2.id, airline_id: british_airways.id)
-trip3 = Trip.create(origin: "Toronto", destination: "Montreal", departure_date_time: "20191101 080000", arrival_date_time: "20191101 100000", price: 150.0, user_id: user_3.id, airline_id: emirates.id)
-trip4 = Trip.create(origin: "Beijing", destination: "Paris", departure_date_time: "20191212 140000", arrival_date_time: "20191213 010000", price: 10500.0, user_id: user_1.id, airline_id: easyjet.id)
+
+flight_1 = Flight.create(origin: "London", destination: "Dubai", date_time: "20190920 163000", price: 450, airline_id: easyjet.id)
+flight_2 = Flight.create(origin: "London", destination: "Paris", date_time: "20190920 120000", price: 200, airline_id: easyjet.id)
+flight_3 = Flight.create(origin: "London", destination: "Dusseldorf", date_time: "20190921 153000", price: 300, airline_id: easyjet.id)
+flight_4 = Flight.create(origin: "Manchester", destination: "Ibiza", date_time: "20190921 080000", price: 80, airline_id: easyjet.id)
+flight_5 = Flight.create(origin: "Manchester", destination: "Paris", date_time: "20190922 100000", price: 200, airline_id: easyjet.id)
+
+flight_6 = Flight.create(origin: "London", destination: "Dubai", date_time: "20190920 100000", price: 600, airline_id: emirates.id)
+flight_7 = Flight.create(origin: "London", destination: "Dusseldorf", date_time: "20190921 130000", price: 300, airline_id: emirates.id)
+flight_8 = Flight.create(origin: "London", destination: "Paris", date_time: "20190920 230000", price: 250, airline_id: emirates.id)
+flight_9 = Flight.create(origin: "London", destination: "Dubai", date_time: "20190922 160000", price: 400, airline_id: emirates.id)
+
+flight_10 = Flight.create(origin: "London", destination: "Dusseldorf", date_time: "20190921 140000", price: 400, airline_id: ba.id)
+flight_11 = Flight.create(origin: "Manchester", destination: "Dusseldorf", date_time: "20190921 150000", price: 50, airline_id: ba.id)
+flight_12 = Flight.create(origin: "Manchester", destination: "Ibiza", date_time: "20190921 090000", price: 100, airline_id: ba.id)
+flight_13 = Flight.create(origin: "Manchester", destination: "Paris", date_time: "20190920 110000", price: 300, airline_id: ba.id)
+flight_14 = Flight.create(origin: "London", destination: "Dubai", date_time: "20190920 113000", price: 450, airline_id: ba.id)
+
+user_1 = User.create(first_name: "Max", last_name: "Braun", age: 23, username: "maxbraun", password: "max")
+user_2 = User.create(first_name: "Abdullah", last_name: "Bajaman", age: 35, username: "abdullahbajaman", password: "abdullah")
+user_3 = User.create(first_name: "Louis", last_name: "Lammerting", age: 23, username: "louislammerting", password: "louis")
+
+trip_1 = Trip.create(flight_id: flight_1.id, user_id: user_1.id)
+trip_2 = Trip.create(flight_id: flight_7.id, user_id: user_2.id)
+trip_3 = Trip.create(flight_id: flight_12.id, user_id: user_3.id)
+
