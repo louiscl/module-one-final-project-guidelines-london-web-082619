@@ -7,18 +7,33 @@ def initialize
 end
 
 def intro
-    puts "Welcome to your personal flight booker assistant"
+    system ('clear')   
+    puts "███████╗██╗     ██╗ ██████╗ ██╗  ██╗████████╗    ██████╗  ██████╗  ██████╗ ██╗  ██╗██╗███╗   ██╗ ██████╗      █████╗ ███████╗███████╗██╗███████╗████████╗ █████╗ ███╗   ██╗████████╗".colorize(:light_blue)
+    sleep(0.1)
+    puts "██╔════╝██║     ██║██╔════╝ ██║  ██║╚══██╔══╝    ██╔══██╗██╔═══██╗██╔═══██╗██║ ██╔╝██║████╗  ██║██╔════╝     ██╔══██╗██╔════╝██╔════╝██║██╔════╝╚══██╔══╝██╔══██╗████╗  ██║╚══██╔══╝".colorize(:light_blue)
+    sleep(0.1)
+    puts "█████╗  ██║     ██║██║  ███╗███████║   ██║       ██████╔╝██║   ██║██║   ██║█████╔╝ ██║██╔██╗ ██║██║  ███╗    ███████║███████╗███████╗██║███████╗   ██║   ███████║██╔██╗ ██║   ██║   ".colorize(:light_blue)
+    sleep(0.1)
+    puts "██╔══╝  ██║     ██║██║   ██║██╔══██║   ██║       ██╔══██╗██║   ██║██║   ██║██╔═██╗ ██║██║╚██╗██║██║   ██║    ██╔══██║╚════██║╚════██║██║╚════██║   ██║   ██╔══██║██║╚██╗██║   ██║   ".colorize(:light_blue)
+    sleep(0.1)
+    puts "██║     ███████╗██║╚██████╔╝██║  ██║   ██║       ██████╔╝╚██████╔╝╚██████╔╝██║  ██╗██║██║ ╚████║╚██████╔╝    ██║  ██║███████║███████║██║███████║   ██║   ██║  ██║██║ ╚████║   ██║   ".colorize(:light_blue)
+    sleep(0.1)
+    puts "╚═╝     ╚══════╝╚═╝ ╚═════╝ ╚═╝  ╚═╝   ╚═╝       ╚═════╝  ╚═════╝  ╚═════╝ ╚═╝  ╚═╝╚═╝╚═╝  ╚═══╝ ╚═════╝     ╚═╝  ╚═╝╚══════╝╚══════╝╚═╝╚══════╝   ╚═╝   ╚═╝  ╚═╝╚═╝  ╚═══╝   ╚═╝   \n\n".colorize(:light_blue)                                                                                                                                                                         
 end
+
+
+
 
 def login
         username = @prompt.ask('Enter username')
         password = @prompt.mask('Enter password')
         if User.verify_login(username, password)
            @user = User.find_user_by_username(username)
+           puts "Hi #{@user.first_name}!"
         else
-            puts "error message"
+            puts "Username or password incorrect".colorize(:color => :white, :background => :red)
+            
         end
-     @user
 end
 
 def register
@@ -28,33 +43,42 @@ def register
         username = @prompt.ask('Create a username')
         password = @prompt.mask('Create a password')
         @user = User.create(first_name: first_name, last_name: last_name, age: age, username: username, password: password)
+        puts "Hi #{@user.first_name}!"
 end
 
 def login_vs_register
-    choices = %w(login register)
-        answer = @prompt.select("Choose login or register", choices)
+    
+    puts "\n   -- Login Menu --   \n".colorize(:color => :white, :background => :light_blue) 
+
+    choices = %w(login register leave)
+        answer = @prompt.select("Login or register", choices)
     if answer == "login"
         login
+    elsif answer == "register"
+        register   
+    elsif answer == "leave"
+        puts "\nThank you for nothing :)\n".colorize(:cyan).bold
+        exit
     end 
-    if answer == "register"
-        register    
-    end 
-    puts "Hi #{@user.first_name}!"
 end
 
 def main_menu
+
+    puts "\n   -- Main Menu --   \n".colorize(:color => :white, :background => :blue)
+
     choices = ["Find a flight", "Visit profile", "Logout"]
-        answer = @prompt.select("Main Menu", choices)
+        answer = @prompt.select("Your options", choices)
         if answer == "Find a flight"
             find_a_flight
         elsif answer == "Visit profile"
             visit_profile
         elsif answer == "Logout"
-            puts "Thank you very much for trusting our personal flight booking assistant"
+            puts "Thank you very much for trusting our personal flight booking assistant".colorize(:light_blue)
         end
 end
 
 def find_a_flight
+    puts "\n -- Flight Finder -- \n".colorize(:color => :white, :background => :blue)
     puts "Please specify the folowing details:"
         origin = @prompt.ask('Where are you flying from?')
         destination = @prompt.ask('Where do you want to fly to?')
@@ -66,6 +90,8 @@ def find_a_flight
      flights_array = flights.map{|f| f.id}
      answer = @prompt.select("Choose flight by flight number", flights_array)
 
+
+    #  answer_id = nil
      book_flight(answer)
 
      puts "Your flight to #{Flight.find(answer).destination} has been booked."
@@ -75,8 +101,7 @@ end
 
 def print_flight_infos(flight_array)
     flight_array.each{|f|
-    puts " "
-    puts "Flight number #{f.id}"
+    puts "\nFlight number #{f.id}"
     puts Airline.find(f.airline_id).name
     puts f.origin
     puts f.destination
@@ -90,7 +115,7 @@ def print_user_infos
     puts @user.full_name
     puts @user.age
     puts @user.username
-    puts "Number of flights taken:"
+    puts "Number of flights booked:"
     puts @user.num_flights_taken
 end
 
