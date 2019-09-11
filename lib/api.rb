@@ -59,7 +59,3 @@ class Api
 
     end
 end
-        binding.pry
-        0
-    
-    
