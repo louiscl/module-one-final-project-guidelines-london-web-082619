@@ -18,4 +18,20 @@ class User < ActiveRecord::Base
         Trip.where("user_id = ?", self.id)
     end
 
+    # def booking_ids
+    #     see_bookings.map{|b| b.id}
+    # end
+
+    def see_flights
+        self.flights
+    end
+
+    def num_flights_taken
+        self.flights.length
+    end
+
+    def full_name
+        name = self.first_name + " " + self.last_name
+    end
+
 end
