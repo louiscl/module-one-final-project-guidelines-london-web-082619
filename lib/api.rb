@@ -1,6 +1,11 @@
 require 'unirest'
 require 'pry'
 
+class Api
+
+    def initialize
+     
+    end
 
     def find_by_place(city)
         response = Unirest.get "https://skyscanner-skyscanner-flight-search-v1.p.rapidapi.com/apiservices/autosuggest/v1.0/UK/GBP/en-GB/?query=#{city}",
@@ -37,20 +42,23 @@ require 'pry'
     end
 
     def find_flight(origin, destination, date)
-
+            array = []
             quote = browse_quotes(origin, destination, date)
-            quote.body["Quotes"].each_with_index{|q, index| 
+            array = quote.body["Quotes"].each_with_index{|q, index| 
                 
-                # puts "Date: #{q["DepartureDate"]}"
+                puts "Flight number: #{q["QuoteId"]}"
+                puts "Date: #{q["DepartureDate"]}"
                 puts "price: #{q["MinPrice"]}"
                 puts "from: #{city_name(origin)}"
                 puts "to: #{city_name(destination)}"
                 puts "Airline: #{quote.body["Carriers"][index]["Name"]}"
                 puts "------------------------"
-                
+                array << q
             }
-    end
+   
 
+    end
+end
         binding.pry
         0
     
