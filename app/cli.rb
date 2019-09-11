@@ -43,12 +43,14 @@ def login_vs_register
 end
 
 def main_menu
-    choices = ["Find a flight", "Visit profile"]
+    choices = ["Find a flight", "Visit profile", "Logout"]
         answer = @prompt.select("Main Menu", choices)
         if answer == "Find a flight"
             find_a_flight
         elsif answer == "Visit profile"
             visit_profile
+        elsif answer == "Logout"
+            puts "Thank you very much for trusting our personal flight booking assistant"
         end
 end
 
@@ -59,24 +61,37 @@ def find_a_flight
         date = @prompt.ask('When do you want to travel?')
         flights = Flight.find_by_date_origin_destination(origin, destination, date)
         
-        flights.each{|f|
-        puts " "
-        puts "Flight ID #{f.id}"
-        puts Airline.find(f.airline_id).name
-        puts f.origin
-        puts f.destination
-        puts f.date_time
-        puts "#{f.price}£"
-        puts " "
-     }
+    print_flight_infos(flights)
+
      flights_array = flights.map{|f| f.id}
-     answer = @prompt.select("Choose flight by flight ID", flights_array)
+     answer = @prompt.select("Choose flight by flight number", flights_array)
 
      book_flight(answer)
 
      puts "Your flight to #{Flight.find(answer).destination} has been booked."
 
      main_menu
+end
+
+def print_flight_infos(flight_array)
+    flight_array.each{|f|
+    puts " "
+    puts "Flight number #{f.id}"
+    puts Airline.find(f.airline_id).name
+    puts f.origin
+    puts f.destination
+    puts f.date_time
+    puts "#{f.price}£"
+    puts " "
+}
+end
+
+def print_user_infos
+    puts @user.full_name
+    puts @user.age
+    puts @user.username
+    puts "Number of flights taken:"
+    puts @user.num_flights_taken
 end
 
 def book_flight(flight_id)
@@ -87,10 +102,13 @@ def visit_profile
     choices = ["Bookings", "About"]
         answer = @prompt.select("Profile options", choices)
         if answer == "Bookings"
-            puts @user.see_bookings
+            flights = @user.flights
+            print_flight_infos(flights)
         elsif answer == "About"
-            puts "about"
+            print "Personal information: "
+            print_user_infos
         end
+    main_menu
 end
 
 def run
