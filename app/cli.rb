@@ -68,7 +68,7 @@ def main_menu
     puts "   -- Main Menu --   ".colorize(:color => :white, :background => :blue)
     puts ' '
 
-    choices = ["Find a flight", "Skycanner", "Visit profile", "Logout"]
+    choices = ["Find a flight", "Skyscanner", "Visit profile", "Logout"]
         answer = @prompt.select("Your options", choices)
         if answer == "Find a flight"
             find_a_flight
@@ -152,8 +152,8 @@ def visit_profile
 end
 
 def run
-    # intro
-    # login_vs_register
+    intro
+    login_vs_register
     main_menu
 end
 
