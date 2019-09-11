@@ -1,8 +1,8 @@
 
-Flight.destory_all
-User.destory_all
-Trip.destory_all
-Airline.destory_all
+Flight.destroy_all
+User.destroy_all
+Trip.destroy_all
+Airline.destroy_all
 
 
 easyjet = Airline.create(name: "EasyJet", business_model: "low cost", founded: "19950301")
