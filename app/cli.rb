@@ -64,14 +64,18 @@ end
 
 def main_menu
 
-    puts "\n   -- Main Menu --   \n".colorize(:color => :white, :background => :blue)
+    puts ' '
+    puts "   -- Main Menu --   ".colorize(:color => :white, :background => :blue)
+    puts ' '
 
-    choices = ["Find a flight", "Visit profile", "Logout"]
+    choices = ["Find a flight", "Skycanner", "Visit profile", "Logout"]
         answer = @prompt.select("Your options", choices)
         if answer == "Find a flight"
             find_a_flight
         elsif answer == "Visit profile"
             visit_profile
+        elsif answer == "Skyscanner"
+            skyscanner
         elsif answer == "Logout"
             puts "Thank you very much for trusting our personal flight booking assistant".colorize(:light_blue)
         end
@@ -98,6 +102,17 @@ def find_a_flight
 
      main_menu
 end
+
+def skyscanner
+
+    puts "\n -- Flight Finder -- \n".colorize(:color => :white, :background => :blue)
+    puts "Please specify the folowing details:"
+        origin = @prompt.ask('Where are you flying from?')
+        destination = @prompt.ask('Where do you want to fly to?')
+        date = @prompt.ask('When do you want to travel?(YYYY-MM-DD)')
+        api = Api.new
+        api.find_flight(origin, destination, date)
+ end
 
 def print_flight_infos(flight_array)
     flight_array.each{|f|
@@ -137,8 +152,8 @@ def visit_profile
 end
 
 def run
-    intro
-    login_vs_register
+    # intro
+    # login_vs_register
     main_menu
 end
 
